@@ -1,10 +1,15 @@
+const userService = require('../service/user-service');
+
 class UserController {
 
     async regionstration(req, res, next) {
         try {
-
+            const { email, password } = req.body;
+            const userData = await userService.registration(email, password);
+            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            return res.json(userData);
         } catch (error) {
-
+            console.log(error);
         }
     }
 
@@ -42,7 +47,7 @@ class UserController {
 
     async getUsers(req, res, next) {
         try {
-            res.jeson(['123, 321']);
+            res.json(['123, 321']);
         } catch (error) {
 
         }

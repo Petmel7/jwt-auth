@@ -2,7 +2,7 @@ const userService = require('../service/user-service');
 
 class UserController {
 
-    async regionstration(req, res, next) {
+    async registration(req, res, next) {
         try {
             const { email, password } = req.body;
             const userData = await userService.registration(email, password);

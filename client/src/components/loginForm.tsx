@@ -1,0 +1,30 @@
+import React, { FC, useContext, useState } from "react";
+import { Context } from "..";
+
+const LoginForm: FC = () => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const { store } = useContext(Context);
+    return (
+        <div>
+            <input
+                onChange={e => setEmail(e.target.value)}
+                type="text"
+                value={email}
+                placeholder="Email"
+            />
+
+            <input
+                onChange={e => setPassword(e.target.value)}
+                type="password"
+                value={password}
+                placeholder="Password"
+            />
+
+            <button onClick={() => store.login(email, password)}>Signin</button>
+            <button onClick={() => store.registration(email, password)}>Signup</button>
+        </div>
+    )
+}
+
+export default LoginForm;

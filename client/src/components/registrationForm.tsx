@@ -2,10 +2,20 @@ import React, { FC, useContext, useState } from "react";
 import { Context } from "..";
 import { observer } from 'mobx-react-lite';
 
-const LoginForm: FC = () => {
+const RegistrationForm: FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
     const { store } = useContext(Context);
+
+    const handleRegistration = () => {
+        if (password !== confirmPassword) {
+            alert('Паролы не спывпадають!');
+            return;
+        }
+
+        store.registration(email, password);
+    }
     return (
         <div className="form">
             <input
@@ -24,9 +34,17 @@ const LoginForm: FC = () => {
                 placeholder="Password"
             />
 
-            <button className="form-button" onClick={() => store.login(email, password)}>Sign in</button>
+            <input
+                className="form-input"
+                onChange={e => setConfirmPassword(e.target.value)}
+                type="password"
+                value={confirmPassword}
+                placeholder="Comfirm password"
+            />
+
+            <button className="form-button" onClick={handleRegistration}>Sign up</button>
         </div>
     )
 }
 
-export default observer(LoginForm);
+export default observer(RegistrationForm);

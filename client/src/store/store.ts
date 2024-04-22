@@ -30,7 +30,7 @@ export default class Store {
     async login(email: string, password: string) {
         try {
             const response = await AuthService.login(email, password);
-            console.log('login response', response);
+            console.log('loginResponse', response);
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
@@ -44,7 +44,6 @@ export default class Store {
             const response = await AuthService.registration(email, password);
             console.log('registrationResponse', response);
             localStorage.setItem('token', response.data.accessToken);
-            // this.setAuth(true);
             this.setUser(response.data.user);
         } catch (error) {
             console.log('registration', error);
@@ -66,13 +65,12 @@ export default class Store {
     async checkAuth() {
         this.setLoading(true);
         try {
-            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true })
+            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
             console.log('checkAuthResponse', response);
             localStorage.setItem('token', response.data.accessToken);
-            console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
+            // console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
             this.setAuth(true);
             this.setUser(response.data.user);
-            console.log('response.data.user', response.data.user);
         } catch (error) {
             console.log('checkAuth', error);
         } finally {

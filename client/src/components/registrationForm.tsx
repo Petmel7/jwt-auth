@@ -10,7 +10,7 @@ const RegistrationForm: FC = () => {
 
     const handleRegistration = () => {
         if (password !== confirmPassword) {
-            alert('Паролы не спывпадають!');
+            alert('Паролі не співпадають!');
             return;
         }
 

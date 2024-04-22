@@ -19,7 +19,7 @@ const App: FC = () => {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       console.log('localStorage.getItem', localStorage.getItem('token'))
-      store.checkAuth()
+      store.checkAuth();
     }
   }, []);
 
@@ -36,16 +36,6 @@ const App: FC = () => {
   if (store.isLoading) {
     return <div>Завантаження...</div>
   }
-
-  // if (!store.isAuth) {
-  //   console.log('!store.isAuth', !store.isAuth)
-  //   return (
-  //     <>
-  //       <LoginForm />
-  //       <RegistrationForm />
-  //     </>
-  //   )
-  // }
 
   if (!store.isAuth) {
     console.log('!store.isAuth', !store.isAuth)
@@ -80,12 +70,12 @@ const App: FC = () => {
 
   return (
     <div className="App" >
-      <h1>{store.isAuth ? `Користувач авторизований ${store.user.email}` : 'АВТОРЕЗУЙТЕСЬ!'}</h1>
-      {/* <h1>{store.isActivated ? 'Акаунт підтверджений по пошті' : 'ПІДТВЕРДІТЬ АКАУНТ!'}</h1> */}
-      <button onClick={() => store.logout()}>logout</button>
-      <div>
-        <button onClick={getUsers}>Get users</button>
-      </div>
+      <h3>{store.isAuth ? `Користувач авторизований ${store.user.email}` : 'АВТОРЕЗУЙТЕСЬ!'}</h3>
+      <h3>{store.user.isActivated ? 'Акаунт підтверджений по пошті' : 'ПІДТВЕРДІТЬ АКАУНТ!'}</h3>
+      <button className='app-button' onClick={() => store.logout()}>logout</button>
+
+      <button className='app-button' onClick={getUsers}>Get users</button>
+
       {users.map(user =>
         <div key={user.email}>{user.email}</div>
       )}

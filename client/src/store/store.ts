@@ -31,6 +31,7 @@ export default class Store {
         try {
             const response = await AuthService.login(email, password);
             console.log('loginResponse', response);
+            console.log('loginAccessToken', response.data.accessToken);
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
@@ -65,10 +66,17 @@ export default class Store {
     async checkAuth() {
         this.setLoading(true);
         try {
-            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
-            console.log('checkAuthResponse', response);
+            const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true });
+            const { accessToken, refreshToken, user } = response.data;
+
+            console.log('accessToken:', accessToken);
+            console.log('refreshToken:', refreshToken);
+            console.log('user:', user);
+
+
+            console.log('checkAuthResponse', response.data.accessToken);
             localStorage.setItem('token', response.data.accessToken);
-            // console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
+            console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch (error) {
@@ -77,4 +85,60 @@ export default class Store {
             this.setLoading(false);
         }
     }
+
+    // async checkAuth() {
+    //     this.setLoading(true);
+    //     try {
+    //         const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true });
+
+    //         console.log('checkAuthResponse', response.data.accessToken);
+    //         localStorage.setItem('token', response.data.accessToken);
+    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
+    //         this.setAuth(true);
+    //         this.setUser(response.data.user);
+    //     } catch (error) {
+    //         console.log('checkAuth', error);
+    //     } finally {
+    //         this.setLoading(false);
+    //     }
+    // }
+
+    // async checkAuth() {
+    //     this.setLoading(true);
+    //     try {
+    //         const response = await axios.get(`${API_URL}/refresh`, {
+    //             params: {
+    //                 accessToken: accessToken
+    //             }
+    //         });
+
+    //         console.log('checkAuthResponse', response.data.accessToken);
+    //         localStorage.setItem('token', response.data.accessToken);
+    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
+    //         this.setAuth(true);
+    //         this.setUser(response.data.user);
+    //     } catch (error) {
+    //         console.log('checkAuth', error);
+    //     } finally {
+    //         this.setLoading(false);
+    //     }
+    // }
+
+    // async checkAuth() {
+    //     this.setLoading(true);
+    //     try {
+    //         const response = await AuthService.checkAuth(accessToken);
+    //         console.log('checkAuthResponse', response);
+    //         localStorage.setItem('token', response.data.accessToken);
+    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
+    //         this.setAuth(true);
+    //         this.setUser(response.data.user);
+    //     } catch (error) {
+    //         console.log('checkAuth', error);
+    //     } finally {
+    //         this.setLoading(false);
+    //     }
+    // }
+
+    // const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
 }

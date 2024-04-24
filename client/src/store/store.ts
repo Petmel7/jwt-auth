@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 import { IUser } from "../models/IUser";
 import AuthService from "../services/AuthService";
 import axios from "axios";
-import { AuthResponse } from "../models/response/AuthResponse";
+// import { AuthResponse } from "../models/response/AuthResponse";
 import { API_URL } from '../http/index';
 
 export default class Store {
@@ -30,7 +30,7 @@ export default class Store {
     async login(email: string, password: string) {
         try {
             const response = await AuthService.login(email, password);
-            console.log('loginResponse', response);
+            // console.log('loginResponse', response);
             console.log('loginAccessToken', response.data.accessToken);
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
@@ -43,7 +43,7 @@ export default class Store {
     async registration(email: string, password: string) {
         try {
             const response = await AuthService.registration(email, password);
-            console.log('registrationResponse', response);
+            // console.log('registrationResponse', response);
             localStorage.setItem('token', response.data.accessToken);
             this.setUser(response.data.user);
         } catch (error) {

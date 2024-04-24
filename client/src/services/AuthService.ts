@@ -11,10 +11,6 @@ export default class AuthService {
         return api.post<AuthResponse>('/registration', { email, password })
     }
 
-    // static async checkAuth(accessToken: string): Promise<AxiosResponse<AuthResponse>> {
-    //     return api.get<AuthResponse>('/refresh', { params: { accessToken } })
-    // }
-
     static async logout(): Promise<void> {
         return api.post('/logout')
     }

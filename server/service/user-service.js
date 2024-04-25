@@ -26,7 +26,7 @@ class UserService {
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
         const userDto = new UserDto(user);
-        const tokens = tokenService.generateToken({ ...userDto });
+        const tokens = tokenService.generateTokens({ ...userDto });
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
         return { ...tokens, user: userDto };
@@ -51,7 +51,7 @@ class UserService {
         if (!refreshToken) {
             throw ApiError.UnauthorizedError();
         }
-        const userData = tokenService.validateAssessToken(refreshToken);
+        const userData = tokenService.validateRefreshToken(refreshToken);
         const tokenFromDb = await tokenService.findToken(refreshToken);
         if (!userData || tokenFromDb) {
             throw ApiError.UnauthorizedError();
@@ -59,7 +59,7 @@ class UserService {
 
         const user = await UserModel.findById(userData.id);
         const userDto = new UserDto(user);
-        const tokens = tokenService.generateToken({ ...userDto });
+        const tokens = tokenService.generateTokens({ ...userDto });
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
         return { ...tokens, user: userDto };
@@ -77,7 +77,7 @@ class UserService {
             throw ApiError.BadRequest('Не коректний пароль');
         }
         const userDto = new UserDto(user);
-        const tokens = tokenService.generateToken({ ...userDto });
+        const tokens = tokenService.generateTokens({ ...userDto });
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
         return { ...tokens, user: userDto };

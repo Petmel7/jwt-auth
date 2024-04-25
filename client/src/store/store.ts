@@ -86,22 +86,22 @@ export default class Store {
     //     }
     // }
 
-    async checkAuth() {
-        this.setLoading(true);
-        try {
-            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
+    // async checkAuth() {
+    //     this.setLoading(true);
+    //     try {
+    //         const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
 
-            console.log('checkAuthResponse', response.data.accessToken);
-            localStorage.setItem('token', response.data.accessToken);
-            console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
-            this.setAuth(true);
-            this.setUser(response.data.user);
-        } catch (error) {
-            console.log('checkAuth', error);
-        } finally {
-            this.setLoading(false);
-        }
-    }
+    //         console.log('checkAuthResponse', response.data.accessToken);
+    //         localStorage.setItem('token', response.data.accessToken);
+    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
+    //         this.setAuth(true);
+    //         this.setUser(response.data.user);
+    //     } catch (error) {
+    //         console.log('checkAuth', error);
+    //     } finally {
+    //         this.setLoading(false);
+    //     }
+    // }
 
     // async checkAuth() {
     //     this.setLoading(true);

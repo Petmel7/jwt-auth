@@ -16,12 +16,12 @@ const App: FC = () => {
     setShowRegistration(prevState => !prevState);
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      console.log('localStorage.getItem', localStorage.getItem('token'))
-      store.checkAuth();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     console.log('localStorage.getItem', localStorage.getItem('token'))
+  //     store.checkAuth();
+  //   }
+  // }, []);
 
   async function getUsers() {
     try {

@@ -27,6 +27,17 @@ export default class Store {
         this.isLoading = bool;
     }
 
+    async registration(email: string, password: string) {
+        try {
+            const response = await AuthService.registration(email, password);
+            console.log('registrationResponse', response);
+            localStorage.setItem('token', response.data.accessToken);
+            this.setUser(response.data.user);
+        } catch (error) {
+            console.log('registration', error);
+        }
+    }
+
     async login(email: string, password: string) {
         try {
             const response = await AuthService.login(email, password);
@@ -37,17 +48,6 @@ export default class Store {
             this.setUser(response.data.user);
         } catch (error) {
             console.log('login', error);
-        }
-    }
-
-    async registration(email: string, password: string) {
-        try {
-            const response = await AuthService.registration(email, password);
-            // console.log('registrationResponse', response);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setUser(response.data.user);
-        } catch (error) {
-            console.log('registration', error);
         }
     }
 
@@ -63,82 +63,18 @@ export default class Store {
         }
     }
 
-    // async checkAuth() {
-    //     this.setLoading(true);
-    //     try {
-    //         const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true });
-    //         const { accessToken, refreshToken, user } = response.data;
-
-    //         console.log('accessToken:', accessToken);
-    //         console.log('refreshToken:', refreshToken);
-    //         console.log('user:', user);
-
-
-    //         console.log('checkAuthResponse', response.data.accessToken);
-    //         localStorage.setItem('token', response.data.accessToken);
-    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
-    //         this.setAuth(true);
-    //         this.setUser(response.data.user);
-    //     } catch (error) {
-    //         console.log('checkAuth', error);
-    //     } finally {
-    //         this.setLoading(false);
-    //     }
-    // }
-
-    // async checkAuth() {
-    //     this.setLoading(true);
-    //     try {
-    //         const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
-
-    //         console.log('checkAuthResponse', response.data.accessToken);
-    //         localStorage.setItem('token', response.data.accessToken);
-    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
-    //         this.setAuth(true);
-    //         this.setUser(response.data.user);
-    //     } catch (error) {
-    //         console.log('checkAuth', error);
-    //     } finally {
-    //         this.setLoading(false);
-    //     }
-    // }
-
-    // async checkAuth() {
-    //     this.setLoading(true);
-    //     try {
-    //         const response = await axios.get(`${API_URL}/refresh`, {
-    //             params: {
-    //                 accessToken: accessToken
-    //             }
-    //         });
-
-    //         console.log('checkAuthResponse', response.data.accessToken);
-    //         localStorage.setItem('token', response.data.accessToken);
-    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
-    //         this.setAuth(true);
-    //         this.setUser(response.data.user);
-    //     } catch (error) {
-    //         console.log('checkAuth', error);
-    //     } finally {
-    //         this.setLoading(false);
-    //     }
-    // }
-
-    // async checkAuth() {
-    //     this.setLoading(true);
-    //     try {
-    //         const response = await AuthService.checkAuth(accessToken);
-    //         console.log('checkAuthResponse', response);
-    //         localStorage.setItem('token', response.data.accessToken);
-    //         console.log('checkAuthLocalStorage.setItem', localStorage.setItem('token', response.data.accessToken));
-    //         this.setAuth(true);
-    //         this.setUser(response.data.user);
-    //     } catch (error) {
-    //         console.log('checkAuth', error);
-    //     } finally {
-    //         this.setLoading(false);
-    //     }
-    // }
-
-    // const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
+    async checkAuth() {
+        this.setLoading(true);
+        try {
+            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
+            console.log('responseCheckAuth', response);
+            localStorage.setItem('token', response.data.accessToken);
+            this.setAuth(true);
+            this.setUser(response.data.user);
+        } catch (error) {
+            console.log('checkAuth', error);
+        } finally {
+            this.setLoading(false);
+        }
+    }
 }

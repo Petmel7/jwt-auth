@@ -15,9 +15,10 @@ const RegistrationForm: FC = () => {
         }
 
         store.registration(email, password);
+        // alert('Успішна реєстрація');
     }
     return (
-        <div className="form">
+        <form className="form">
             <input
                 className="form-input"
                 onChange={e => setEmail(e.target.value)}
@@ -43,7 +44,7 @@ const RegistrationForm: FC = () => {
             />
 
             <button className="form-button" onClick={handleRegistration}>Sign up</button>
-        </div>
+        </form>
     )
 }
 

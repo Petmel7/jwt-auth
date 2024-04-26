@@ -7,7 +7,7 @@ const LoginForm: FC = () => {
     const [password, setPassword] = useState<string>('');
     const { store } = useContext(Context);
     return (
-        <div className="form">
+        <form className="form">
             <input
                 className="form-input"
                 onChange={e => setEmail(e.target.value)}
@@ -25,7 +25,7 @@ const LoginForm: FC = () => {
             />
 
             <button className="form-button" onClick={() => store.login(email, password)}>Sign in</button>
-        </div>
+        </form>
     )
 }
 

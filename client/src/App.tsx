@@ -12,16 +12,16 @@ const App: FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [showRegistration, setShowRegistration] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      console.log('localStorage.getItem', localStorage.getItem('token'))
+      store.checkAuth();
+    }
+  }, [store]);
+
   const handleToggleForm = () => {
     setShowRegistration(prevState => !prevState);
   };
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('token')) {
-  //     console.log('localStorage.getItem', localStorage.getItem('token'))
-  //     store.checkAuth();
-  //   }
-  // }, []);
 
   async function getUsers() {
     try {

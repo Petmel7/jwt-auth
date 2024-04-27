@@ -2,31 +2,36 @@ import React, { FC, useContext, useState } from "react";
 import { Context } from "..";
 import { observer } from 'mobx-react-lite';
 
-const LoginForm: FC = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const { store } = useContext(Context);
-    return (
-        <form className="form">
-            <input
-                className="form-input"
-                onChange={e => setEmail(e.target.value)}
-                type="text"
-                value={email}
-                placeholder="Email"
-            />
+// const LoginForm: FC = () => {
+//     const [email, setEmail] = useState<string>('');
+//     const [password, setPassword] = useState<string>('');
+//     const { store } = useContext(Context);
 
-            <input
-                className="form-input"
-                onChange={e => setPassword(e.target.value)}
-                type="password"
-                value={password}
-                placeholder="Password"
-            />
+//     const handleLogin = () => {
+//         store.login(email, password);
+//     }
 
-            <button className="form-button" onClick={() => store.login(email, password)}>Sign in</button>
-        </form>
-    )
-}
+//     return (
+//         <form className="form">
+//             <input
+//                 className="form-input"
+//                 onChange={e => setEmail(e.target.value)}
+//                 type="text"
+//                 value={email}
+//                 placeholder="Email"
+//             />
 
-export default observer(LoginForm);
+//             <input
+//                 className="form-input"
+//                 onChange={e => setPassword(e.target.value)}
+//                 type="password"
+//                 value={password}
+//                 placeholder="Password"
+//             />
+
+//             <button className="form-button" onClick={handleLogin}>Sign in</button>
+//         </form>
+//     )
+// }
+
+// export default observer(LoginForm);

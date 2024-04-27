@@ -15,8 +15,15 @@ const RegistrationForm: FC = () => {
         }
 
         store.registration(email, password);
-        // alert('Успішна реєстрація');
     }
+
+    const handleLogin = () => {
+        store.login(email, password);
+    }
+
+    const showStyle = !store.isAuth ? 'show-style' : '';
+    console.log('showStyle', showStyle);
+
     return (
         <form className="form">
             <input
@@ -36,14 +43,15 @@ const RegistrationForm: FC = () => {
             />
 
             <input
-                className="form-input"
+                className={`form-input ${showStyle}`}
                 onChange={e => setConfirmPassword(e.target.value)}
                 type="password"
                 value={confirmPassword}
                 placeholder="Comfirm password"
             />
 
-            <button className="form-button" onClick={handleRegistration}>Sign up</button>
+            <button className={`form-button ${showStyle}`} onClick={handleRegistration}>Sign up</button>
+            <button className="form-button" onClick={handleLogin}>Sign in</button>
         </form>
     )
 }

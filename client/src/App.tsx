@@ -1,5 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-// import LoginForm from './components/loginForm';
+import LoginForm from './components/loginForm';
 import RegistrationForm from './components/registrationForm';
 import { Context } from '.';
 import { observer } from 'mobx-react-lite';
@@ -10,7 +10,7 @@ import './index.css';
 const App: FC = () => {
   const { store } = useContext(Context);
   const [users, setUsers] = useState<IUser[]>([]);
-  // const [showRegistration, setShowRegistration] = useState<boolean>(false);
+  const [showRegistration, setShowRegistration] = useState<boolean>(false);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -19,17 +19,19 @@ const App: FC = () => {
     }
   }, [store]);
 
-  // const handleToggleForm = () => {
-  //   setShowRegistration(prevState => !prevState);
-  // };
+  const handleToggleForm = () => {
+    setShowRegistration(prevState => !prevState);
+  };
 
   async function getUsers() {
     try {
       const response = await UserService.fetchUsers();
       setUsers(response.data);
+      console.log('response.data', response.data);
 
     } catch (error) {
       console.log('getUsers', error);
+      alert(`Користувач не авторизований!`);
     }
   }
 
@@ -41,38 +43,20 @@ const App: FC = () => {
     console.log('!store.isAuth', !store.isAuth)
     return (
       <div className="auth-page">
-        <RegistrationForm />
-        {/* Відображаємо форму авторизації, якщо користувач не авторизований
-        {!store.isAuth && !showRegistration && (
+        {/* Відображаємо форму авторизації, якщо користувач не авторизований або форму реєстрації, якщо користувач не авторизований і натиснута кнопка для переключення форми */}
+        {!store.isAuth && !showRegistration ? (
           <LoginForm />
-        )} */}
-
-        {/* Відображаємо форму реєстрації, якщо користувач не авторизований і натиснута кнопка для переключення форми */}
-        {/* {!store.isAuth && showRegistration && (
+        ) : (
           <RegistrationForm />
-        )} */}
+        )}
 
-        {/* Показуємо посилання для переключення між формами, якщо користувач не авторизований
-        {!store.isAuth && (
-          <div className="sign-container">
-            <button className='sign-button' onClick={handleToggleForm}>
-              {showRegistration ? "Sign in" : "Sign up"}
-            </button>
-          </div>
-        )} */}
-
-        {/* Показуємо посилання для переключення між формами, якщо користувач не авторизований */}
-
+        {/* { Показуємо посилання для переключення між формами, якщо користувач не авторизований */}
         <div className="sign-container">
           <button className='sign-button' onClick={handleToggleForm}>
-            {store.isAuth ? "Sign in" : "Sign up"}
+            {showRegistration ? "Sign in" : "Sign up"}
           </button>
         </div>
 
-        {/* Повідомлення, що користувач вже авторизований */}
-        {store.isAuth && (
-          <div>Ви вже авторизовані</div>
-        )}
       </div>
     )
   }

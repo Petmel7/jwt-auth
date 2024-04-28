@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { Context } from "..";
 import { observer } from 'mobx-react-lite';
 
@@ -16,13 +16,6 @@ const RegistrationForm: FC = () => {
 
         store.registration(email, password);
     }
-
-    const handleLogin = () => {
-        store.login(email, password);
-    }
-
-    const showStyle = !store.isAuth ? 'show-style' : '';
-    console.log('showStyle', showStyle);
 
     return (
         <form className="form">
@@ -43,15 +36,15 @@ const RegistrationForm: FC = () => {
             />
 
             <input
-                className={`form-input ${showStyle}`}
+                className="form-input"
                 onChange={e => setConfirmPassword(e.target.value)}
                 type="password"
                 value={confirmPassword}
                 placeholder="Comfirm password"
             />
 
-            <button className={`form-button ${showStyle}`} onClick={handleRegistration}>Sign up</button>
-            <button className="form-button" onClick={handleLogin}>Sign in</button>
+            <button className="form-button" onClick={handleRegistration}>Sign up</button>
+
         </form>
     )
 }

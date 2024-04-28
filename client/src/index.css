@@ -65,3 +65,7 @@
 .show-style {
     display: none;
 }
+
+.active {
+    display: none;
+}
